@@ -129,22 +129,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += qcmediaplayer
 
 PRODUCT_PACKAGES += \
-    audiod \
-    audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    libaudio-resampler \
-    libqcompostprocbundle \
+    libaudio-resampler
+
+# Audio effects
+PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    tinymix
+    libqcomvoiceprocessingdescriptors
 
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     device/lge/hammerhead/audio_policy.conf:system/etc/audio_policy.conf \
-    device/lge/hammerhead/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     device/lge/hammerhead/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_PACKAGES += \
@@ -273,6 +272,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
+# Enable AAC 5.1 output
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true
+
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1
@@ -293,18 +296,18 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true \
-    mm.enable.smoothstreaming=true \
-    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.handset.mic.type=digital \
+    persist.audio.dualmic.config=endfire \
     persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=false \
     af.resampler.quality=4 \
     audio.offload.buffer.size.kb=32 \
     audio.offload.gapless.enabled=true \
     av.offload.enable=true \
     av.streaming.offload.enable=true \
     audio.offload.pcm.enable=true \
-    audio.offload.24bit.enable=1 \
-    qcom.hw.aac.encoder=true
+    audio.offload.24bit.enable=1
 
 # Setup custom emergency number list based on the MCC. This is needed by RIL
 PRODUCT_PROPERTY_OVERRIDES += \
